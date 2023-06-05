@@ -1,4 +1,4 @@
-# Normal sku 100 task with common setting.
+# Normal sku 200 task with common setting.
 # All skus are selected from sku2307 with minimum fluctuation demand.
 env:
   mode:
@@ -16,12 +16,12 @@ env:
   lookback_len: 21
   integerization_sku: True
   warmup: replenish_by_last_demand
-  sku_list: ReplenishmentEnv/data/sku2778/sku100.sku_list.csv
+  sku_list: ReplenishmentEnv/data/sku2778/sku200.sku_list.csv
 
 warehouse:
   - name: store1
     initial_balance: 0
-    capacity: 10000
+    capacity: 20000
     unit_storage_cost: 0.002
     accept_sku: equal_accept
     upstream: super_vendor
@@ -33,7 +33,7 @@ warehouse:
         - name: selling_price
           file: ReplenishmentEnv/data/sku2778/sku2778.store1.selling_price.csv
         - name: demand
-          file: ReplenishmentEnv/data/sku2778/sku2778.demand.csv
+          file: ReplenishmentEnv/data/sku2778/sku2778.demand.distribution_shift_1_.csv
       static_data: ReplenishmentEnv/data/sku2778/sku2778.store1.info.csv
       shared_data:
         unit_order_cost: 10
