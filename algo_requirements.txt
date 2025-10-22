@@ -9,3 +9,5 @@ wandb
 torch
 sacred
 pyecharts
+tabulate
+matplotlib
