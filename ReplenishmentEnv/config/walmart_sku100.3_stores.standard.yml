@@ -3,7 +3,7 @@
 env:
   mode:
     - name: train
-      start_date: 2013/05/13
+      start_date: 2013/05/24 # moved up 11 days for warmup
       end_date: 2016/03/12
       random_interception: True
     - name: validation
