@@ -16,7 +16,7 @@ env:
   lookback_len: 21
   integerization_sku: True
   warmup: replenish_by_last_demand
-  sku_list: ReplenishmentEnv/data/walmart/processed/sku100.sku_list.foods.ca3.highest_demand.csv
+  sku_list: ReplenishmentEnv/data/walmart/processed/wm1/sku100.sku_list.foods.ca3.highest_demand.csv
 
 warehouse:
   - name: store1
@@ -29,12 +29,12 @@ warehouse:
     sku:
       dynamic_data:
         - name: procurement_cost
-          file: ReplenishmentEnv/data/walmart/processed/sku100.procurement_cost.csv
+          file: ReplenishmentEnv/data/walmart/processed/wm1/sku100.procurement_cost.csv
         - name: selling_price
-          file: ReplenishmentEnv/data/walmart/processed/sku100.selling_price.csv
+          file: ReplenishmentEnv/data/walmart/processed/wm1/sku100.selling_price.csv
         - name: demand
-          file: ReplenishmentEnv/data/walmart/processed/sku100.demand.csv
-      static_data: ReplenishmentEnv/data/walmart/processed/sku100.store_info.csv
+          file: ReplenishmentEnv/data/walmart/processed/wm1/sku100.demand.csv
+      static_data: ReplenishmentEnv/data/walmart/processed/wm1/sku100.store_info.csv
       shared_data:
         unit_order_cost: 10
         volume: 1
