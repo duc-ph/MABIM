@@ -36,7 +36,7 @@ def my_main(_run, _config, _log):
     # Set up wandb
     if config['use_wandb']:
         wandb.login()
-        wandb.init(project=config['wandb_project_name'], name=config['--config'], config=config)
+        wandb.init(project=config['wandb_project_name'], name=config['--run-name'], config=config)
 
     # run
 
