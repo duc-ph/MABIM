@@ -1,0 +1,10 @@
+env: "replenishment"
+
+env_args:
+  key: "replenishment_efficient_env-v0"
+  map_name: "walmart2.sku100.single_store.standard"
+  n_agents: 100
+  task_type: "walmart2.sku100.single_store.standard"
+  mode: train
+  time_limit: 100
+  reward: "reward2"

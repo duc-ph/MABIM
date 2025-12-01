@@ -1,0 +1,82 @@
+# Normal sku 100 task with common setting.
+# Walmart 2 dataset - CA2 region
+env:
+  mode:
+    - name: train
+      start_date: 2013/06/30 # moved up for warmup
+      end_date: 2016/03/12
+      random_interception: True
+    - name: validation
+      start_date: 2016/03/13
+      end_date: 2016/04/12
+    - name: test
+      start_date: 2016/04/13
+      end_date: 2016/05/12
+  horizon: 100
+  lookback_len: 21
+  integerization_sku: True
+  warmup: replenish_by_last_demand
+  sku_list: ReplenishmentEnv/data/walmart/processed/wm2/sku100.sku_list.ca2.highest_demand.csv
+
+warehouse:
+  - name: store2
+    initial_balance: 0
+    capacity: 10000
+    unit_storage_cost: 0.002
+    accept_sku: equal_accept
+    upstream: super_vendor
+    downstream: store1
+    sku:
+      dynamic_data:
+        - name: procurement_cost
+          file: ReplenishmentEnv/data/walmart/processed/wm2/sku100.store3.selling_price_V2.csv
+        - name: selling_price
+          file: ReplenishmentEnv/data/walmart/processed/wm2/sku100.store2.selling_price_V2.csv
+      static_data: ReplenishmentEnv/data/walmart/processed/wm2/sku100.store_info.csv
+      shared_data:
+        unit_order_cost: 10
+        volume: 1
+        basic_holding_cost: 0.001
+        backlog_ratio: 0.1
+        overflow_cost_ratio: 0.5
+  - name: store1
+    initial_balance: 0
+    capacity: 10000
+    unit_storage_cost: 0.002
+    accept_sku: equal_accept
+    upstream: store2
+    downstream: consumer
+    sku:
+      dynamic_data:
+        - name: procurement_cost
+          file: ReplenishmentEnv/data/walmart/processed/wm2/sku100.store2.selling_price_V2.csv
+        - name: selling_price
+          file: ReplenishmentEnv/data/walmart/processed/wm2/sku100.selling_price.csv
+        - name: demand
+          file: ReplenishmentEnv/data/walmart/processed/wm2/sku100.demand.csv
+      static_data: ReplenishmentEnv/data/walmart/processed/wm2/sku100.store_info.csv
+      shared_data:
+        unit_order_cost: 10
+        volume: 1
+        basic_holding_cost: 0.001
+        backlog_ratio: 0.1
+        overflow_cost_ratio: 0.5
+
+profit_function: reward2
+
+reward_function: reward2
+
+action:
+  mode: demand_mean_continuous
+
+output_state:
+  current_state:
+    [selling_price, procurement_cost, vlt, volume,
+    unit_order_cost, replenish, excess, in_stock, in_transit]
+  lookback_state:
+    [demand]
+
+visualization:
+  state:
+    [demand, sale, arrived, replenish,
+    excess, accepted, in_stock, in_transit]
