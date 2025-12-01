@@ -36,7 +36,7 @@ def my_main(_run, _config, _log):
     # Set up wandb
     if config['use_wandb']:
         wandb.login()
-        wandb.init(project=config['wandb_project_name'], name=config['--run-name'], config=config)
+        wandb.init(project=config['wandb_project_name'], name=config['run_name'], config=config)
 
     # run
 
@@ -112,8 +112,12 @@ if __name__ == "__main__":
     config_dict = {}
     env_config = _get_config(params, "--env-config", "envs")
     alg_config = _get_config(params, "--config", "algs")
+    run_name = parse_command(params, "--run-name", config_dict.get("name", "default"))
+    # Remove --run-name from params so Sacred doesn't complain
+    params = [p for p in params if not p.startswith("--run-name")]
     config_dict = recursive_dict_update(config_dict, env_config)
     config_dict = recursive_dict_update(config_dict, alg_config)
+    config_dict["run_name"] = run_name
 
     # now add all the config to sacred
     ex.add_config(config_dict)
